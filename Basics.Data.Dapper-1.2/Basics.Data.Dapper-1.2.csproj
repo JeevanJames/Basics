@@ -5,11 +5,11 @@
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC8025F0-C268-4C0A-BFD2-CB2645AC0CB1}</ProjectGuid>
+    <ProjectGuid>{50C78E77-3178-4429-92E6-1B3984082FA8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Basics.Domain_1._2</RootNamespace>
-    <AssemblyName>Basics.Domain-1.2</AssemblyName>
+    <RootNamespace>Basics.Data.Dapper</RootNamespace>
+    <AssemblyName>Basics.Data.Dapper</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -24,6 +24,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Debug\Basics.Data.Dapper.XML</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,25 +35,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Basics.Data.Dapper.XML</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\Basics.1.2\Basics.1.2.csproj">
-      <Project>{cada3fe6-f4ed-461f-b82c-11df5e62de4e}</Project>
-      <Name>Basics.1.2</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\Basics.Domain\BaseDomain.cs">
-      <Link>BaseDomain.cs</Link>
-    </Compile>
-    <Compile Include="..\Basics.Domain\DomainContainerExtensions.cs">
-      <Link>DomainContainerExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Basics.Domain\DomainFactory.cs">
-      <Link>DomainFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\Basics.Domain\Properties\AssemblyInfo.cs">
+    <Compile Include="..\Basics.Data.Dapper\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="..\SolutionInfo.cs">

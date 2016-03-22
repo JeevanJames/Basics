@@ -16,15 +16,18 @@ namespace Basics.Domain
 
         public static void RegisterDomains(this IContainerBuilder builder, params Assembly[] assemblies)
         {
+            TypeInfo domainFactoryInterface = typeof(IDomainFactory).GetTypeInfo();
             foreach (Assembly assembly in assemblies)
             {
-                IEnumerable<Type> domainTypes = assembly.ExportedTypes.Where(type => !type.IsAbstract && type.IsClass &&
-                    typeof(IDomainFactory).IsAssignableFrom(type));
-                foreach (Type domainType in domainTypes)
+                IEnumerable<TypeInfo> domainTypes = assembly.ExportedTypes
+                    .Select(type => type.GetTypeInfo())
+                    .Where(typeInfo => !typeInfo.IsAbstract && typeInfo.IsClass &&
+                        domainFactoryInterface.IsAssignableFrom(typeInfo));
+                foreach (TypeInfo domainType in domainTypes)
                 {
-                    Type interfaceType = domainType.GetInterface($"I{domainType.Name}");
+                    Type interfaceType = domainType.ImplementedInterfaces.FirstOrDefault(intf => intf.Name.Equals($"I{domainType.Name}", StringComparison.OrdinalIgnoreCase));
                     if (interfaceType != null)
-                        builder.RegisterType(interfaceType, domainType);
+                        builder.RegisterType(interfaceType, domainType.AsType());
                 }
             }
         }
