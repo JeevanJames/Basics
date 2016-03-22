@@ -44,7 +44,7 @@ namespace Basics.Containers
             if (assembly == null)
                 throw new ArgumentNullException(nameof(assembly));
             predicate = predicate ?? (type => true);
-            IEnumerable<Type> typesToRegister = assembly.GetExportedTypes().Where(predicate);
+            IEnumerable<Type> typesToRegister = assembly.ExportedTypes.Where(predicate);
             foreach (Type typeToRegister in typesToRegister)
                 builder.RegisterTypeAsSelf(typeToRegister);
         }

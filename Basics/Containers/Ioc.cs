@@ -24,7 +24,7 @@ namespace Basics.Containers
         /// <returns>The instance of the container builder.</returns>
         public static IContainerBuilder CreateBuilder()
         {
-            var builder = (IContainerBuilder) Activator.CreateInstance(CoreConfig.Config.Container.Builder);
+            var builder = (IContainerBuilder) Activator.CreateInstance(CoreConfig.Config.Container.BuilderType);
             InitializeBuilder(builder);
             return builder;
         }
@@ -38,11 +38,11 @@ namespace Basics.Containers
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
-            CoreSection.ContainerElement containerConfig = CoreConfig.Config.Container;
-            builder.RegisterType<IAuditor>(containerConfig.Auditor?.Type ?? typeof (NullAuditor));
-            builder.RegisterType<ICache>(containerConfig.Cache?.Type ?? typeof (NullCache));
-            builder.RegisterType<IDistributedCache>(containerConfig.DistributedCache?.Type ?? typeof (NullCache));
-            builder.RegisterType<ILogger>(containerConfig.Logger?.Type ?? typeof (NullLogger));
+            ContainerConfig containerConfig = CoreConfig.Config.Container;
+            builder.RegisterType<IAuditor>(containerConfig.AuditorType ?? typeof (NullAuditor));
+            builder.RegisterType<ICache>(containerConfig.CacheType ?? typeof (NullCache));
+            builder.RegisterType<IDistributedCache>(containerConfig.DistributedCacheType ?? typeof (NullCache));
+            builder.RegisterType<ILogger>(containerConfig.LoggerType ?? typeof (NullLogger));
         }
 
         /// <summary>

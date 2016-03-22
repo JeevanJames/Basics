@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NETFX
+using System;
 using System.ComponentModel;
 using System.Configuration;
 using System.Globalization;
@@ -22,3 +23,4 @@ namespace Basics.Config
         }
     }
 }
+#endif

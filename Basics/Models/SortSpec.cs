@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Basics.Models
 {
@@ -13,7 +14,7 @@ namespace Basics.Models
     {
         public SortSpec(TSortField field, SortOrder order)
         {
-            if (!typeof(TSortField).IsEnum)
+            if (!typeof(TSortField).GetTypeInfo().IsEnum)
             {
                 throw new ArgumentException(
                     $"Sort field generic parameter ({typeof(TSortField).FullName}) should be an enum.", nameof(field));

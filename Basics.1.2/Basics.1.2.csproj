@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CADA3FE6-F4ED-461F-B82C-11DF5E62DE4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Basics</RootNamespace>
+    <AssemblyName>Basics</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="..\Basics\Config\sample.config">
+      <Link>Config\sample.config</Link>
+    </None>
+    <None Include="Basics.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Basics\Caching\ICache.cs">
+      <Link>Caching\ICache.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Caching\IDistributedCache.cs">
+      <Link>Caching\IDistributedCache.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Caching\NullCache.cs">
+      <Link>Caching\NullCache.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Config\ConnectionStringConverter.cs">
+      <Link>Config\ConnectionStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Config\CoreConfig.cs">
+      <Link>Config\CoreConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Config\CoreSection.cs">
+      <Link>Config\CoreSection.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Containers\ContainerException.cs">
+      <Link>Containers\ContainerException.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Containers\IContainer.cs">
+      <Link>Containers\IContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Containers\IContainerBuilder.cs">
+      <Link>Containers\IContainerBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Containers\IKeyed.cs">
+      <Link>Containers\IKeyed.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Containers\Ioc.cs">
+      <Link>Containers\Ioc.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Containers\IOptional.cs">
+      <Link>Containers\IOptional.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\EnumerableExtensions.cs">
+      <Link>EnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Logging\IAuditor.cs">
+      <Link>Logging\IAuditor.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Logging\ILogger.cs">
+      <Link>Logging\ILogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Logging\LogType.cs">
+      <Link>Logging\LogType.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Logging\NullAuditor.cs">
+      <Link>Logging\NullAuditor.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Logging\NullLogger.cs">
+      <Link>Logging\NullLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Models\BatchOperationResults.cs">
+      <Link>Models\BatchOperationResults.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Models\DomainModel.cs">
+      <Link>Models\DomainModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Models\SearchCriteria.cs">
+      <Link>Models\SearchCriteria.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Models\SearchResults.cs">
+      <Link>Models\SearchResults.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Models\SortSpec.cs">
+      <Link>Models\SortSpec.cs</Link>
+    </Compile>
+    <Compile Include="..\Basics\Models\UserContext.cs">
+      <Link>Models\UserContext.cs</Link>
+    </Compile>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

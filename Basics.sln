@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics.Data.Dapper.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics.Data.Dapper.SqlServer.Tests", "Basics.Data.Dapper.SqlServer.Tests\Basics.Data.Dapper.SqlServer.Tests.csproj", "{9FF9C418-EFEB-41D7-BDB1-C6CFEDE9D710}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics.1.2", "Basics.1.2\Basics.1.2.csproj", "{CADA3FE6-F4ED-461F-B82C-11DF5E62DE4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{9FF9C418-EFEB-41D7-BDB1-C6CFEDE9D710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FF9C418-EFEB-41D7-BDB1-C6CFEDE9D710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FF9C418-EFEB-41D7-BDB1-C6CFEDE9D710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CADA3FE6-F4ED-461F-B82C-11DF5E62DE4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CADA3FE6-F4ED-461F-B82C-11DF5E62DE4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CADA3FE6-F4ED-461F-B82C-11DF5E62DE4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CADA3FE6-F4ED-461F-B82C-11DF5E62DE4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,5 +102,6 @@ Global
 		{936D1C5A-04F4-4B6E-8957-DF2FF4553355} = {1EB56691-7E8B-4E1E-9A2F-4EDED2A5E6CD}
 		{15297AD4-9C78-45C5-9CB4-CF4335FB5789} = {B081D242-2C95-404B-8A75-280F8EA615B9}
 		{9FF9C418-EFEB-41D7-BDB1-C6CFEDE9D710} = {B081D242-2C95-404B-8A75-280F8EA615B9}
+		{CADA3FE6-F4ED-461F-B82C-11DF5E62DE4E} = {1EB56691-7E8B-4E1E-9A2F-4EDED2A5E6CD}
 	EndGlobalSection
 EndGlobal

@@ -1,19 +1,10 @@
-﻿using System;
+﻿#if NETFX
+using System;
 using System.ComponentModel;
 using System.Configuration;
 
 namespace Basics.Config
 {
-    public static class CoreConfig
-    {
-        static CoreConfig()
-        {
-            Config = (CoreSection)ConfigurationManager.GetSection("basics/core");
-        }
-
-        public static CoreSection Config { get; }
-    }
-
     public sealed class CoreSection : ConfigurationSection
     {
         [ConfigurationProperty("container")]
@@ -54,3 +45,4 @@ namespace Basics.Config
         }
     }
 }
+#endif
