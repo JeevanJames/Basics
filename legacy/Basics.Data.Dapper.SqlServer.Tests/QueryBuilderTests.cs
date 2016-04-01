@@ -2,12 +2,28 @@
 
 using Basics.Models;
 
+using Dapper;
+
 using Xunit;
 
 namespace Basics.Data.Dapper.SqlServer.Tests
 {
     public class QueryBuilderTests
     {
+        [Theory]
+        [InlineData("SELECT [[[Id], [Name]]] FROM [dbo].[People] WHERE [Name] LIKE @Name", "SELECT [Id], [Name] FROM [dbo].[People] WHERE [Name] LIKE @Name")]
+        public void Basic_queries(string query, string expectedQuery)
+        {
+            var @params = new DynamicParameters();
+            @params.Set("@Name", "%Jeevan%");
+            SearchQueryBuilder builder = SearchQueryBuilder.Create(query);
+            SearchQuery searchQuery = builder.Build(null, @params);
+
+            Assert.Equal(expectedQuery, searchQuery.DataQuery);
+            Assert.False(searchQuery.HasCountQuery);
+            Assert.Null(searchQuery.CountQuery);
+        }
+
         [Theory]
         [InlineData("SELECT [[*]] FROM MyTable", "SELECT * FROM MyTable")]
         [InlineData("SELECT [[Field1, Field2, Field3]] FROM MyTable", "SELECT Field1, Field2, Field3 FROM MyTable")]
@@ -55,6 +71,11 @@ namespace Basics.Data.Dapper.SqlServer.Tests
             SearchQuery searchQuery = builder.Build(criteria);
             Assert.Equal("SELECT * FROM MyTable WHERE Active IS NULL AND Name = @p0", searchQuery.DataQuery);
         }
+    }
+
+    public sealed class BasicCriteria : SearchCriteria
+    {
+        public string Name { get; set; }
     }
 
     public sealed class MyCriteria : SearchCriteria<MyField, MyField>
