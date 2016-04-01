@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Dynamic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -122,7 +123,9 @@ namespace Basics.Data.Dapper
     {
         public static SearchQueryBuilder Create(string dataQuery, bool hasExistingConditions = false)
         {
-            Type type = DapperConfig.Current.SearchQueryBuilder;
+            Type type = DapperConfig.Current?.SearchQueryBuilder;
+            if (type == null)
+                throw new ConfigurationErrorsException("Missing configuration for Basics.Data.Dapper");
             return Activator.CreateInstance(type, dataQuery, hasExistingConditions) as SearchQueryBuilder;
         }
     }

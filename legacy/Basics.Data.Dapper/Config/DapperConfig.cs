@@ -8,7 +8,7 @@ namespace Basics.Data.Dapper.Config
     {
         static DapperConfig()
         {
-            Current = (DapperSection)ConfigurationManager.GetSection("basics/dapper");
+            Current = ConfigurationManager.GetSection("basics/dapper") as DapperSection;
         }
 
         public static DapperSection Current { get; }
