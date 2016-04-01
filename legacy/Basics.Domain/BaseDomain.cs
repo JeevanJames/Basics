@@ -4,7 +4,7 @@ namespace Basics.Domain
 {
     public interface IBaseDomain
     {
-        UserContext User { get; }
+        UserContext User { get; set; }
     }
 
     public abstract class BaseDomain

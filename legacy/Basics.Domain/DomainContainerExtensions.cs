@@ -11,7 +11,7 @@ namespace Basics.Domain
     {
         public static void AddDomainSupport(this IContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(IDomainFactory), typeof(DomainFactory));
+            builder.RegisterType<IDomainFactory, DomainFactory>();
         }
 
         public static void RegisterDomains(this IContainerBuilder builder, params Assembly[] assemblies)

@@ -34,6 +34,7 @@ FOR %%P IN (*.nupkg) DO SET PackagedFile="%%P"
 IF NOT EXIST "%PackagedFile%" GOTO Error_PackagingFailed
 
 REM Publish the package to NuGet.
+NUGET PUSH "%PackagedFile%" -Source LocalNuGetFeed
 NUGET PUSH "%PackagedFile%"
 
 REM Delete the package file.

@@ -6,4 +6,5 @@ CALL install-nuget.bat Basics.Containers.Autofac
 CALL install-nuget.bat Basics.Containers.ServiceLocator
 CALL install-nuget.bat Basics.Data.Dapper
 CALL install-nuget.bat Basics.Data.Dapper.SqlServer
+CALL install-nuget.bat Basics.Domain
 CALL install-nuget.bat Basics.Testing.Xunit

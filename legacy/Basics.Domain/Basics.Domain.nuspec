@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<package>
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <authors>$author$</authors>
+        <owners>$author$</owners>
+        <licenseUrl>https://raw.githubusercontent.com/JeevanJames/Basics/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/JeevanJames/Basics</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/JeevanJames/Basics/master/Logo.jpg</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <title>$title$</title>
+        <summary>$title$</summary>
+        <description>$description$</description>
+        <copyright>Copyright (c) Jeevan James 2015-2016</copyright>
+        <tags>Basics Domain</tags>
+        <dependencies>
+            <group>
+                <dependency id="Basics"/>
+            </group>
+        </dependencies>
+    </metadata>
+</package>
