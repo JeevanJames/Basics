@@ -14,7 +14,7 @@ namespace Basics.Data.Dapper.SqlServer
         {
         }
 
-        protected override SearchQuery DoBuild(SearchCriteria criteria, string dataQuery, string countQuery, IDictionary<string, object> parameters, bool hasExistingConditions)
+        protected override SearchQuery DoBuild(SearchCriteria criteria, string dataQuery, string countQuery, IDictionary<string, object> parameters)
         {
             bool requiresPagination = criteria.RequiresPagination();
 
@@ -36,8 +36,7 @@ namespace Basics.Data.Dapper.SqlServer
             return CreateSearchQueryInstance(dataQueryBuilder.ToString(), countQueryBuilder?.ToString(), parameters);
         }
 
-        protected override SearchQuery DoBuild<TSortField>(SearchCriteria<TSortField> criteria, string dataQuery, string countQuery, IDictionary<string, object> parameters,
-            bool hasExistingConditions)
+        protected override SearchQuery DoBuild<TSortField>(SearchCriteria<TSortField> criteria, string dataQuery, string countQuery, IDictionary<string, object> parameters)
         {
             bool requiresPagination = criteria.RequiresPagination();
 

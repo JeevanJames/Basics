@@ -24,21 +24,21 @@ namespace Basics.Data.Dapper
 
         public SearchQuery Build(SearchCriteria criteria, object parameters = null)
         {
-            ResolveQueries();
+            PrepareQueries();
             IDictionary<string, object> parameterDictionary = GetParametersFromObject(parameters);
             return criteria == null
                 ? CreateSearchQueryInstance(_dataQuery, null, parameterDictionary)
-                : DoBuild(criteria, _dataQuery, _countQuery, parameterDictionary, HasExistingConditions);
+                : DoBuild(criteria, _dataQuery, _countQuery, parameterDictionary);
         }
 
         public SearchQuery Build<TSortField>(SearchCriteria<TSortField> criteria, object parameters = null)
-            where TSortField : struct, IComparable 
+            where TSortField : struct, IComparable
         {
-            ResolveQueries();
+            PrepareQueries();
             IDictionary<string, object> parameterDictionary = GetParametersFromObject(parameters);
             return criteria == null
                 ? CreateSearchQueryInstance(_dataQuery, null, parameterDictionary)
-                : DoBuild(criteria, _dataQuery, _countQuery, parameterDictionary, HasExistingConditions);
+                : DoBuild(criteria, _dataQuery, _countQuery, parameterDictionary);
         }
 
         public SearchQuery Build<TFilterField, TSortField>(SearchCriteria<TFilterField, TSortField> criteria,
@@ -46,7 +46,7 @@ namespace Basics.Data.Dapper
             where TFilterField : struct, IComparable
             where TSortField : struct, IComparable
         {
-            ResolveQueries();
+            PrepareQueries();
             IDictionary<string, object> parameterDictionary = GetParametersFromObject(parameters);
             return criteria == null
                 ? CreateSearchQueryInstance(_dataQuery, null, parameterDictionary)
@@ -55,16 +55,22 @@ namespace Basics.Data.Dapper
 
         protected bool HasExistingConditions { get; }
 
-        /// <summary>
-        ///     Resolves the base query into actual data and count queries.
-        /// </summary>
-        private void ResolveQueries()
+        private void PrepareQueries()
         {
             if (_dataQuery == null)
-            {
-                _dataQuery = FieldPattern.Replace(_baseQuery, match => match.Groups[1].Value, 1);
-                _countQuery = FieldPattern.Replace(_baseQuery, "COUNT(*)", 1);
-            }
+                PrepareQueries(_baseQuery, out _dataQuery, out _countQuery);
+        }
+
+        /// <summary>
+        /// Creates a data query and count query from the specified base query.
+        /// </summary>
+        /// <param name="baseQuery">The base query from which to extract the data and count queries. The fields must be surrounded by a [[ ]] pair.</param>
+        /// <param name="dataQuery">The extracted data query.</param>
+        /// <param name="countQuery">The extracted count query.</param>
+        protected virtual void PrepareQueries(string baseQuery, out string dataQuery, out string countQuery)
+        {
+            dataQuery = FieldPattern.Replace(_baseQuery, match => match.Groups[1].Value, 1);
+            countQuery = FieldPattern.Replace(_baseQuery, "COUNT(*)", 1);
         }
 
         private static readonly Regex FieldPattern = new Regex(@"\[\[(.+)\]\]");
@@ -88,13 +94,15 @@ namespace Basics.Data.Dapper
             return result;
         }
 
-        protected abstract SearchQuery DoBuild(SearchCriteria criteria, string dataQuery, string countQuery, IDictionary<string, object> parameters, bool hasExistingCondition);
+        protected abstract SearchQuery DoBuild(SearchCriteria criteria, string dataQuery, string countQuery,
+            IDictionary<string, object> parameters);
 
         protected abstract SearchQuery DoBuild<TSortField>(SearchCriteria<TSortField> criteria,
-            string dataQuery, string countQuery, IDictionary<string, object> parameters, bool hasExistingCondition)
+            string dataQuery, string countQuery, IDictionary<string, object> parameters)
             where TSortField : struct, IComparable;
 
-        protected abstract SearchQuery DoBuild<TFilterField, TSortField>(SearchCriteria<TFilterField, TSortField> criteria,
+        protected abstract SearchQuery DoBuild<TFilterField, TSortField>(
+            SearchCriteria<TFilterField, TSortField> criteria,
             string dataQuery, string countQuery, IDictionary<string, object> parameters, bool hasExistingCondition)
             where TFilterField : struct, IComparable
             where TSortField : struct, IComparable;
@@ -110,22 +118,31 @@ namespace Basics.Data.Dapper
         protected SearchQuery CreateSearchQueryInstance(string dataQuery, string countQuery,
             IDictionary<string, object> parameters)
         {
+            return new SearchQuery(dataQuery, countQuery, parameters);
+
             //TODO: Do we need to convert to an ExpandoObject? Can't we just pass the dictionary to Dapper?
-            var objectParameters = new ExpandoObject();
-            var parameterDictionary = (IDictionary<string, object>) objectParameters;
-            foreach (KeyValuePair<string, object> parameter in parameters)
-                parameterDictionary.Add(parameter);
-            return new SearchQuery(dataQuery, countQuery, objectParameters);
+            //var objectParameters = new ExpandoObject();
+            //var parameterDictionary = (IDictionary<string, object>)objectParameters;
+            //foreach (KeyValuePair<string, object> parameter in parameters) 
+            //    parameterDictionary.Add(parameter);
+            //return new SearchQuery(dataQuery, countQuery, objectParameters);
         }
     }
 
     public abstract partial class SearchQueryBuilder
     {
+        /// <summary>
+        ///     Factory method to create an instance of <see cref="SearchQueryBuilder" /> from the concrete type specified in
+        ///     configuration.
+        /// </summary>
+        /// <param name="dataQuery">The base data query for the search.</param>
+        /// <param name="hasExistingConditions">True, if the base data query has existing WHERE conditions.</param>
+        /// <returns>An instance of <see cref="SearchQueryBuilder" />.</returns>
         public static SearchQueryBuilder Create(string dataQuery, bool hasExistingConditions = false)
         {
             Type type = DapperConfig.Current?.SearchQueryBuilder;
             if (type == null)
-                throw new ConfigurationErrorsException("Missing configuration for Basics.Data.Dapper");
+                throw new ConfigurationErrorsException("Missing configuration for Basics.Data.Dapper.");
             return Activator.CreateInstance(type, dataQuery, hasExistingConditions) as SearchQueryBuilder;
         }
     }

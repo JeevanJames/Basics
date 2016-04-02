@@ -1,14 +1,14 @@
-﻿using Basics.Models;
+﻿using System.Security.Claims;
 
 namespace Basics.Domain
 {
     public interface IBaseDomain
     {
-        UserContext User { get; set; }
+        ClaimsPrincipal User { get; set; }
     }
 
     public abstract class BaseDomain
     {
-        public UserContext User { get; set; }
+        public ClaimsPrincipal User { get; set; }
     }
 }

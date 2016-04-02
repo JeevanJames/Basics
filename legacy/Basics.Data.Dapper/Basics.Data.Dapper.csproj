@@ -21,6 +21,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Debug\Basics.Data.Dapper.XML</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +32,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Basics.Data.Dapper.XML</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -55,6 +59,7 @@
     <Compile Include="DapperExtensions.cs" />
     <Compile Include="DapperFx.cs" />
     <Compile Include="FieldMappings.cs" />
+    <Compile Include="SearchQueryExtensions.cs" />
     <Compile Include="TypeHandlers\InstantTypeHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchQuery.cs" />
