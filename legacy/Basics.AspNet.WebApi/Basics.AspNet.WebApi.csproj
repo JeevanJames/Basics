@@ -63,6 +63,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Extensions.cs" />
+    <Compile Include="GlobalExceptionFilter.cs" />
     <Compile Include="GlobalPrefixProvider.cs" />
     <Compile Include="ModelBinders\ListModelBinder.cs" />
     <Compile Include="ModelBinders\SearchCriteriaModelBinder.cs" />
@@ -82,6 +83,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Basics.Domain\Basics.Domain.csproj">
+      <Project>{540B57EC-D441-4AAC-86E5-1F3C13A8985C}</Project>
+      <Name>Basics.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Basics\Basics.csproj">
       <Project>{ed62a147-a8a1-4303-9807-0e859fa5aa51}</Project>
       <Name>Basics</Name>

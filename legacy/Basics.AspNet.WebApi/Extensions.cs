@@ -39,6 +39,8 @@ namespace Basics.AspNet.WebApi
             config.MapHttpAttributeRoutes(new GlobalPrefixProvider());
 
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Default;
+            config.UseGlobalExceptionFilter(new GlobalExceptionFilter());
+            config.UseGlobalExceptionHandler(new GlobalExceptionHandler());
 
             config.Formatters.Clear();
             var jsonFormatter = new JsonMediaTypeFormatter {
@@ -50,20 +52,6 @@ namespace Basics.AspNet.WebApi
             jsonFormatter.SerializerSettings.Converters.Add(new UnixEpochDateTimeConverter());
             jsonFormatter.SerializerSettings.Converters.Add(new StringEnumConverter());
             config.Formatters.Add(jsonFormatter);
-        }
-
-        public static UserContext ToUserContext(this IPrincipal principal)
-        {
-            string[] permissions = (principal as ClaimsPrincipal)?.Claims
-                .Where(claim => claim.Type == BasicsClaimTypes.Permission)
-                .Select(claim => claim.Value)
-                .ToArray();
-            if (permissions == null)
-            {
-                throw new ArgumentException("IPrincipal type to convert to UserContext should be a ClaimsPrincipal.",
-                    nameof(principal));
-            }
-            return new UserContext(principal.Identity.Name, permissions);
         }
     }
 }

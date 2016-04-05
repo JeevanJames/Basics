@@ -18,6 +18,7 @@
         <dependencies>
             <group>
                 <dependency id="Basics"/>
+                <dependency id="Basics.Domain"/>
             </group>
         </dependencies>
     </metadata>

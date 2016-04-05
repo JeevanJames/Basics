@@ -33,9 +33,19 @@ SET PackagedFile=
 FOR %%P IN (*.nupkg) DO SET PackagedFile="%%P"
 IF NOT EXIST "%PackagedFile%" GOTO Error_PackagingFailed
 
+REM Build the project in release mode and package it up into a NuGet symbols package.
+NUGET PACK "%ProjectFile%" -Build -Properties Configuration=Release -Symbols
+
+REM Look for a .symbols.nupkg file in the directory.
+REM If multiple .symbols.nupkg files found, use the last one.
+SET SymbolPackageFile=
+FOR %%P IN (*.symbols.nupkg) DO SET SymbolPackageFile="%%P"
+IF NOT EXIST "%SymbolPackageFile%" GOTO Error_SymbolPackagingFailed
+
 REM Publish the package to NuGet.
 REM NUGET PUSH "%PackagedFile%" -Source LocalNuGetFeed
 NUGET PUSH "%PackagedFile%"
+NUGET PUSH "%SymbolPackageFile%"
 
 REM Delete the package file.
 DEL *.nupkg /Q
@@ -59,6 +69,11 @@ GOTO Usage
 
 :Error_PackagingFailed
 ECHO It looks like the project could not be packaged correctly.
+ECHO Please try again.
+GOTO Usage
+
+:Error_SymbolPackagingFailed
+ECHO It looks like the project could not be packaged correctly as a symbols package.
 ECHO Please try again.
 GOTO Usage
 

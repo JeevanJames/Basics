@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics", "Basics\Basics.csproj", "{ED62A147-A8A1-4303-9807-0E859FA5AA51}"
 EndProject
@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{F1E004AA-A92B-4B7F-A59D-F4E4D065121E}"
 	ProjectSection(SolutionItems) = preProject
 		install-nuget.bat = install-nuget.bat
+		publish-nugets.bat = publish-nugets.bat
 		SolutionInfo.cs = SolutionInfo.cs
 		SolutionInfo_Tests.cs = SolutionInfo_Tests.cs
 		update-deps.bat = update-deps.bat
