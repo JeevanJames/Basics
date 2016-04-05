@@ -45,7 +45,6 @@ IF NOT EXIST "%SymbolPackageFile%" GOTO Error_SymbolPackagingFailed
 REM Publish the package to NuGet.
 REM NUGET PUSH "%PackagedFile%" -Source LocalNuGetFeed
 NUGET PUSH "%PackagedFile%"
-NUGET PUSH "%SymbolPackageFile%"
 
 REM Delete the package file.
 DEL *.nupkg /Q
