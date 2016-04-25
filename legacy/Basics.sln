@@ -46,6 +46,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers.ServiceLocator",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet.WebApi", "AspNet.WebApi", "{234A3014-0DB1-46C8-BA2A-2AB9B6B522CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics.Processors", "Basics.Processors\Basics.Processors.csproj", "{16E2A858-8E25-4EE4-9A7F-2B502549FE2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{540B57EC-D441-4AAC-86E5-1F3C13A8985C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{540B57EC-D441-4AAC-86E5-1F3C13A8985C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{540B57EC-D441-4AAC-86E5-1F3C13A8985C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16E2A858-8E25-4EE4-9A7F-2B502549FE2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E2A858-8E25-4EE4-9A7F-2B502549FE2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E2A858-8E25-4EE4-9A7F-2B502549FE2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E2A858-8E25-4EE4-9A7F-2B502549FE2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

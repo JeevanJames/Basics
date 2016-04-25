@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Security.Claims;
 
-using Basics.Models;
-
 namespace Basics.Testing.Xunit
 {
     /// <summary>
