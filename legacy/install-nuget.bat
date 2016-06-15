@@ -42,9 +42,10 @@ SET SymbolPackageFile=
 FOR %%P IN (*.symbols.nupkg) DO SET SymbolPackageFile="%%P"
 IF NOT EXIST "%SymbolPackageFile%" GOTO Error_SymbolPackagingFailed
 
+ECHO ...Publishing
 REM Publish the package to NuGet.
 REM NUGET PUSH "%PackagedFile%" -Source LocalNuGetFeed
-NUGET PUSH "%PackagedFile%"
+NUGET PUSH "%PackagedFile%" -Source https://api.nuget.org/v3/index.json
 
 REM Delete the package file.
 DEL *.nupkg /Q

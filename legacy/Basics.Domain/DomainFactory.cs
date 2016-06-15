@@ -19,4 +19,21 @@ namespace Basics.Domain
             return domain;
         }
     }
+
+    public interface IDomain<out TContract>
+        where TContract : IBaseDomain
+    {
+        TContract Get(ClaimsPrincipal user);
+    }
+
+    internal sealed class Domain<TContract> : IDomain<TContract>
+        where TContract : IBaseDomain
+    {
+        TContract IDomain<TContract>.Get(ClaimsPrincipal user)
+        {
+            var domain = Ioc.Container.Resolve<TContract>();
+            domain.User = user;
+            return domain;
+        }
+    }
 }

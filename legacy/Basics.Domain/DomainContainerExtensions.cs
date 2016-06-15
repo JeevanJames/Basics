@@ -43,6 +43,7 @@ namespace Basics.Domain
             if (!_domainSupportAdded)
             {
                 builder.RegisterType<IDomainFactory, DomainFactory>();
+                builder.RegisterGeneric(typeof(IDomain<>), typeof(Domain<>));
                 _domainSupportAdded = true;
             }
         }
