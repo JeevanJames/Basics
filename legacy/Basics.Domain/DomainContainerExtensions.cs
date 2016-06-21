@@ -15,26 +15,11 @@ namespace Basics.Domain
         public static void RegisterDomains(this IContainerBuilder builder, params Assembly[] assemblies)
         {
             EnsureDomainSupport(builder);
-            TypeInfo baseDomainIntf = typeof(IBaseDomain).GetTypeInfo();
-            foreach (Assembly assembly in assemblies)
-            {
-                IEnumerable<TypeInfo> domainTypes = assembly.ExportedTypes
-                    .Select(type => type.GetTypeInfo())
-                    .Where(typeInfo => !typeInfo.IsAbstract && typeInfo.IsClass &&
-                        baseDomainIntf.IsAssignableFrom(typeInfo));
-                foreach (TypeInfo domainType in domainTypes)
-                {
-                    Type interfaceType =
-                        domainType.ImplementedInterfaces.FirstOrDefault(
-                            intf => intf.Name.Equals($"I{domainType.Name}", StringComparison.OrdinalIgnoreCase));
-                    if (interfaceType != null)
-                        builder.RegisterType(interfaceType, domainType.AsType());
-                }
-            }
+            builder.RegisterByConvention(assemblies, type => type.Name.EndsWith("Domain"));
         }
 
         /// <summary>
-        ///     Ensures that the IDomainFactory interface is registered with the container.
+        ///     Ensures that the IDomainFactory and IDomain interfaces are registered with the container.
         /// </summary>
         /// <param name="builder">The container builder to register the IDomainFactory interface with.</param>
         [MethodImpl(MethodImplOptions.Synchronized)]

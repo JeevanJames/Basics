@@ -62,8 +62,8 @@ namespace Basics.Containers
             List<Type> allInterfaces = allTypes.Where(type => type.IsInterface && type.Name.StartsWith("I")).ToList();
             foreach (Type matchingClass in matchingClasses)
             {
-                string expectedInterfaceName = $"{matchingClass.Namespace}.I{matchingClass.Name}";
-                Type matchingInterfaceType = allInterfaces.FirstOrDefault(type => type.FullName.Equals(expectedInterfaceName, StringComparison.Ordinal));
+                string expectedInterfaceName = $"I{matchingClass.Name}";
+                Type matchingInterfaceType = Array.Find(matchingClass.GetInterfaces(), type => type.Name.Equals(expectedInterfaceName));
                 if (matchingInterfaceType == null)
                     continue;
                 if (matchingInterfaceType.IsAssignableFrom(matchingClass))
