@@ -6,8 +6,7 @@ namespace Basics.Domain
 {
     public interface IDomainFactory
     {
-        TDomain Get<TDomain>(ClaimsPrincipal user)
-            where TDomain : IBaseDomain;
+        TDomain Get<TDomain>(ClaimsPrincipal user);
     }
 
     internal sealed class DomainFactory : IDomainFactory
@@ -15,24 +14,28 @@ namespace Basics.Domain
         TDomain IDomainFactory.Get<TDomain>(ClaimsPrincipal user)
         {
             var domain = Ioc.Container.Resolve<TDomain>();
-            domain.User = user;
+            var baseDomain = domain as IBaseDomain;
+            if (baseDomain == null)
+                throw new InvalidDomainException(typeof(TDomain));
+            baseDomain.User = user;
             return domain;
         }
     }
 
     public interface IDomain<out TContract>
-        where TContract : IBaseDomain
     {
         TContract Get(ClaimsPrincipal user);
     }
 
     internal sealed class Domain<TContract> : IDomain<TContract>
-        where TContract : IBaseDomain
     {
         TContract IDomain<TContract>.Get(ClaimsPrincipal user)
         {
             var domain = Ioc.Container.Resolve<TContract>();
-            domain.User = user;
+            var baseDomain = domain as IBaseDomain;
+            if (baseDomain == null)
+                throw new InvalidDomainException(typeof(TContract));
+            baseDomain.User = user;
             return domain;
         }
     }

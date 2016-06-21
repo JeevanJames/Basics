@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 
 using Basics.Containers;
 
@@ -13,7 +15,8 @@ namespace Basics.Tests
         public ContainerTests()
         {
             IContainerBuilder builder = Ioc.CreateBuilder();
-            builder.RegisterType<IProcess, Process>();
+            builder.RegisterByConvention(new[] { Assembly.GetExecutingAssembly() }, type => type.Name == "Process");
+            //builder.RegisterType<IProcess, Process>();
             builder.RegisterType<IPerson, Customer>("Customer");
             builder.RegisterType<IPerson, Vendor>("Vendor");
             builder.RegisterGeneric(typeof(IRepository<>), typeof(Repository<>));

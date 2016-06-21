@@ -15,7 +15,8 @@ namespace Basics.Domain
         public static void RegisterDomains(this IContainerBuilder builder, params Assembly[] assemblies)
         {
             EnsureDomainSupport(builder);
-            builder.RegisterByConvention(assemblies, type => type.Name.EndsWith("Domain"));
+            Type baseDomainInterface = typeof(IBaseDomain);
+            builder.RegisterByConvention(assemblies, type => type.Name.EndsWith("Domain") && baseDomainInterface.IsAssignableFrom(type));
         }
 
         /// <summary>

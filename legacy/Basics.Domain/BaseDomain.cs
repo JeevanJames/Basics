@@ -7,7 +7,7 @@ namespace Basics.Domain
         ClaimsPrincipal User { get; set; }
     }
 
-    public abstract class BaseDomain
+    public abstract class BaseDomain : IBaseDomain
     {
         public ClaimsPrincipal User { get; set; }
     }
