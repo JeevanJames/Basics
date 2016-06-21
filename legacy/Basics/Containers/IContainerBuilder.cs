@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Basics.Containers
 {
@@ -47,6 +48,37 @@ namespace Basics.Containers
             IEnumerable<Type> typesToRegister = assembly.ExportedTypes.Where(predicate);
             foreach (Type typeToRegister in typesToRegister)
                 builder.RegisterTypeAsSelf(typeToRegister);
+        }
+
+        public static IEnumerable<KeyValuePair<Type, Type>> RegisterByConvention(this IContainerBuilder builder, IEnumerable<Assembly> assemblies,
+            Func<Type, bool> predicate = null)
+        {
+            if (assemblies == null)
+                throw new ArgumentNullException(nameof(assemblies));
+
+            IEnumerable<Type> allTypes = assemblies.SelectMany(asm => asm.GetExportedTypes());
+            predicate = predicate ?? (type => true);
+            IEnumerable<Type> matchingClasses = allTypes.Where(type => type.IsClass && predicate(type));
+            List<Type> allInterfaces = allTypes.Where(type => type.IsInterface && type.Name.StartsWith("I")).ToList();
+            foreach (Type matchingClass in matchingClasses)
+            {
+                string expectedInterfaceName = $"{matchingClass.Namespace}.I{matchingClass.Name}";
+                Type matchingInterfaceType = allInterfaces.FirstOrDefault(type => type.FullName.Equals(expectedInterfaceName, StringComparison.Ordinal));
+                if (matchingInterfaceType == null)
+                    continue;
+                if (matchingInterfaceType.IsAssignableFrom(matchingClass))
+                {
+                    builder.RegisterType(matchingInterfaceType, matchingClass);
+                    yield return new KeyValuePair<Type, Type>(matchingInterfaceType, matchingClass);
+                }
+            }
+        }
+
+        public static IEnumerable<KeyValuePair<Type, Type>> RegisterByConvention(this IContainerBuilder builder, IEnumerable<Assembly> assemblies, Regex classNamePattern)
+        {
+            if (classNamePattern == null)
+                throw new ArgumentNullException(nameof(classNamePattern));
+            return RegisterByConvention(builder, assemblies, type => classNamePattern.IsMatch(type.FullName));
         }
     }
 }
