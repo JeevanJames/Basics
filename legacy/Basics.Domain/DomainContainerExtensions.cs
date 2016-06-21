@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -12,11 +10,17 @@ namespace Basics.Domain
     {
         private static bool _domainSupportAdded;
 
+        /// <summary>
+        ///     Registers all classes in the specified assemblies, which implement the <see cref="IBaseDomain" /> interface, with
+        ///     the container.
+        /// </summary>
+        /// <param name="builder">The container builder to register the domain classes with.</param>
+        /// <param name="assemblies">The collection of assemblies to search through for domain classes.</param>
         public static void RegisterDomains(this IContainerBuilder builder, params Assembly[] assemblies)
         {
             EnsureDomainSupport(builder);
             Type baseDomainInterface = typeof(IBaseDomain);
-            builder.RegisterByConvention(assemblies, type => type.Name.EndsWith("Domain") && baseDomainInterface.IsAssignableFrom(type));
+            builder.RegisterByConvention(assemblies, type => baseDomainInterface.IsAssignableFrom(type));
         }
 
         /// <summary>
