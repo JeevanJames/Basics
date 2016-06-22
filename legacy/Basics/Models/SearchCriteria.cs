@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace Basics.Models
 {
+    /// <summary>
+    ///     Base search criteria class that supports only pagination.
+    /// </summary>
     [DebuggerDisplay("Starting at {StartRecord ?? 0}, max {RecordCount ?? int.MaxValue} records")]
     public abstract class SearchCriteria
     {
@@ -20,6 +23,11 @@ namespace Basics.Models
         /// <summary>
         ///     Returns whether the search criteria specifies pagination criteria.
         /// </summary>
+        /// <remarks>
+        ///     This member is a method and not a property, to avoid unnecessarily serializing it. While we can use
+        ///     specialized attributes to avoid serialization, those are framework-specific, and by making it a method, we get all
+        ///     the same benefits without having to select a specific serialization framework to handle.
+        /// </remarks>
         public bool RequiresPagination()
         {
             bool requiresPagination = StartRecord.HasValue && StartRecord.Value > 0;
@@ -29,6 +37,10 @@ namespace Basics.Models
         }
     }
 
+    /// <summary>
+    ///     Base search criteria class that supports sorting, in addition to pagination.
+    /// </summary>
+    /// <typeparam name="TSortField">Enum representing the fields that can be sorted.</typeparam>
     public abstract class SearchCriteria<TSortField> : SearchCriteria
         where TSortField : struct, IComparable
     {
