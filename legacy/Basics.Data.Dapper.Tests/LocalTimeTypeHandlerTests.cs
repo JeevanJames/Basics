@@ -32,7 +32,6 @@ namespace Basics.Data.Dapper.Tests
         [InlineData(4, 14, 22)]
         [InlineData(0, 0, 0)]
         [InlineData(23, 59, 59)]
-        [InlineData(24, 59, 59)]
         public void Can_convert_timespan_to_localtime(int hour, int minute, int second)
         {
             var handler = new LocalTimeTypeHandler();
