@@ -40,5 +40,22 @@ namespace Basics
             if (!predicate(permissionClaim.Properties))
                 throw new SecurityException("You do not have permissions to perform this operation.");
         }
+
+        public static void AddPermissions(this Claim claim, IEnumerable<string> permissions)
+        {
+            foreach (string permission in permissions)
+                claim.Properties.Add(permission, string.Empty);
+        }
+
+        public static void AddPermissions(this ClaimsIdentity identity, IEnumerable<string> permissions)
+        {
+            Claim permissionClaim = identity.FindFirst(BasicsClaimTypes.Permission);
+            if (permissionClaim == null)
+            {
+                permissionClaim = new Claim(BasicsClaimTypes.Permission, string.Empty);
+                identity.AddClaim(permissionClaim);
+            }
+            permissionClaim.AddPermissions(permissions);
+        }
     }
 }
