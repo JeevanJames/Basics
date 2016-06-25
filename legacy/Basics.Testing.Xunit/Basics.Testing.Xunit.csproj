@@ -63,6 +63,7 @@
     <Compile Include="BaseUserContextTest.cs" />
     <Compile Include="ContainerFixtureBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XUnitOutputTraceListener.cs" />
     <Compile Include="UserContextFixtureBase.cs" />
   </ItemGroup>
   <ItemGroup>
