@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -64,7 +65,10 @@ namespace Basics.Containers
                 string expectedInterfaceName = $"I{matchingClass.Name}";
                 Type matchingInterfaceType = Array.Find(matchingClass.GetInterfaces(), type => type.Name.Equals(expectedInterfaceName));
                 if (matchingInterfaceType != null)
+                {
                     builder.RegisterType(matchingInterfaceType, matchingClass);
+                    Trace.WriteLine($"Registering dependency by convention {matchingInterfaceType.AssemblyQualifiedName} by {matchingClass.AssemblyQualifiedName}", "Basics");
+                }
             }
         }
 
