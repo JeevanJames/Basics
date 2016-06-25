@@ -47,7 +47,13 @@ namespace Basics
                 claim.Properties.Add(permission, string.Empty);
         }
 
-        public static void AddPermissions(this ClaimsIdentity identity, IEnumerable<string> permissions)
+        /// <summary>
+        /// Adds one or more permission claims to the given identity.
+        /// </summary>
+        /// <param name="identity">The <see cref="ClaimsIdentity"/> instance to add the permission claims to.</param>
+        /// <param name="permissions">The permissions to add.</param>
+        /// <returns>Instance of the permissions claim</returns>
+        public static Claim AddPermissions(this ClaimsIdentity identity, IEnumerable<string> permissions)
         {
             Claim permissionClaim = identity.FindFirst(BasicsClaimTypes.Permission);
             if (permissionClaim == null)
@@ -56,6 +62,7 @@ namespace Basics
                 identity.AddClaim(permissionClaim);
             }
             permissionClaim.AddPermissions(permissions);
+            return permissionClaim;
         }
     }
 }
