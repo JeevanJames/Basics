@@ -4,7 +4,7 @@ assembly_info:
   file: '**\SolutionInfo.*'
   assembly_version: '{version}'
   assembly_file_version: '{version}'
-  assembly_informational_version: '{version}-pre'
+  assembly_informational_version: '{version}'
 before_build:
 - cmd: nuget restore legacy\Basics.sln
 build:
@@ -16,5 +16,7 @@ build:
   verbosity: minimal
 deploy:
 - provider: NuGet
+  server: https://www.myget.org/F/jeevanjames/api/v2/package
   api_key:
-    secure: JU30GUQSjsq71xr+fc3Ps0bYxFmsmrNJnpvAmRE8Tgrbj1tHICONHsnvoq91VYML
+    secure: TBghYs0vLRIqxJK7TYR0cHpuybQ61ZyvBd/25wGdY0AyKWcKyCgSZ77gELSbyP8s
+  symbol_server: https://nuget.symbolsource.org/MyGet/jeevanjames
