@@ -18,5 +18,5 @@ deploy:
 - provider: NuGet
   server: https://www.myget.org/F/jeevanjames/api/v2/package
   api_key:
-    secure: TBghYs0vLRIqxJK7TYR0cHpuybQ61ZyvBd/25wGdY0AyKWcKyCgSZ77gELSbyP8s
+    secure: 3tEiaoqZlTJcJkAX+3wWyp3mbCYuJpALEFzTEaum6ACiXbWgsa1kWYGBi3TUFY7c
   symbol_server: https://nuget.symbolsource.org/MyGet/jeevanjames
